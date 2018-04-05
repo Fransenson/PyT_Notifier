@@ -35,7 +35,7 @@ Please provide absolute paths to the needed files.
 ### Step 5 - Run!
 Run the script via `python3 PyT_Notifier.py` in your terminal.
 
-If you are using pm2 just go with `pm2 start PyT_Notifier.py --interpreter python3
+If you are using pm2 just go with `pm2 start PyT_Notifier.py --interpreter python3`
 
 
 ## Feedback
