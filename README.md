@@ -15,9 +15,15 @@ Install Python 3: Follow the instructions on [the Python download page](https://
 
 
 ### Step 2 - Install twx.botapi
+First, check if pip3 is installed: `pip3 -V` - if this reports an issue: see below.
+
+If pip3 is working:
+
 Install the twx.botapi: `pip3 install twx.botapi`
 
-If you are facing issues with pip, see the [official instructions to install pip](https://packaging.python.org/tutorials/installing-packages/) or [the pip installation guide](https://pip.pypa.io/en/stable/installing/), or you just go: 
+
+If you are facing issues with pip3, see the [official instructions to install pip](https://packaging.python.org/tutorials/installing-packages/) or [the pip installation guide](https://pip.pypa.io/en/stable/installing/), or you just go: 
+
 `sudo apt-get install python3-pip`
 
 
