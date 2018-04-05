@@ -23,7 +23,7 @@ or you just go: `sudo apt-get install python3-pip`
 
 
 ### Step 3 - Download PyT_Notifier
-Download the current version of PyT_Notifier from the [release page here on github](https://github.com/Fransenson/PyT_Notifier/releases)
+Download the current version of PyT_Notifier from the [release page here on GitHub](https://github.com/Fransenson/PyT_Notifier/releases)
 
 
 ### Step 4 - Change settings as needed
