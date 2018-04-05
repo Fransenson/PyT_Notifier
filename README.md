@@ -33,7 +33,7 @@ To get your chat id, open a chat with your bot, visit https://api.telegram.org/b
 Please provide absolute paths to the needed files. 
 
 ### Step 5 - Run!
-Run the script via `python PyT_Notifier.py` in your terminal.
+Run the script via `python3 PyT_Notifier.py` in your terminal.
 
 
 ## Feedback
