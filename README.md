@@ -17,9 +17,7 @@ Install Python 3: Follow the instructions on [the Python download page](https://
 ### Step 2 - Install twx.botapi
 Install the twx.botapi: `pip3 install twx.botapi`
 
-If you are facing issues with pip, see the [official instructions to install pip](https://packaging.python.org/tutorials/installing-packages/) or [the pip installation guide](https://pip.pypa.io/en/stable/installing/)
-
-or you just go: `sudo apt-get install python3-pip`
+If you are facing issues with pip, see the [official instructions to install pip](https://packaging.python.org/tutorials/installing-packages/) or [the pip installation guide](https://pip.pypa.io/en/stable/installing/), or you just go: `sudo apt-get install python3-pip`
 
 
 ### Step 3 - Download PyT_Notifier
