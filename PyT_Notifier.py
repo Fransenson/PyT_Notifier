@@ -50,6 +50,8 @@ print("Done reading logfile till the end.")
 print("Starting to watch for new transactions...DO NOT CLOSE THIS WINDOW")
 aliveCounter = 5000
 ##Watchmode runtime
+result = bot.send_message(chat_id, "I am up and watching your trades! See you soon.").wait()
+
 while True:
     aliveCounter -= 1
     if aliveCounter == 0:
@@ -117,7 +119,6 @@ while True:
 
             if dcaCountDiff > 0:
                 for x in range(1, dcaCountDiff + 1):
-                    if boughtTimes > 0:
                         market = str(pyLogObject['dcaLogData'][latestDcaCount - x]['market'])
                         date = str(
                             pyLogObject['dcaLogData'][latestDcaCount - x]['averageCalculator']['firstBoughtDate'][
