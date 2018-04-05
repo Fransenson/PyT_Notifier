@@ -8,10 +8,11 @@ A Telegram notification bot for ProfitTrailer
 ## Installation
 PyT_Notifier uses twx.botapi to send notifications. Therefore you need to install this package.
 
-**If you've installed Python(3.X) already, you can skip to step 2**
+**If you've installed Python(3.X) already, you can probably skip to step 2**
 
 ### Step 1 - Install Python
 Install Python 3: Follow the instructions on [the Python download page](https://www.python.org/downloads/)
+
 
 ### Step 2 - Install twx.botapi
 Install the twx.botapi: `pip3 install twx.botapi`
@@ -20,8 +21,10 @@ If you are facing issues with pip, see the [official instructions to install pip
 
 or you just go: `sudo apt-get install python3-pip`
 
+
 ### Step 3 - Download PyT_Notifier
 Download the current version of PyT_Notifier from the [release page here on github](https://github.com/Fransenson/PyT_Notifier/releases)
+
 
 ### Step 4 - Change settings as needed
 Open `settings.py` with a text editor of your choice and fill in your relevant data. 
@@ -31,6 +34,7 @@ If you don't have a Telegram Bot API key already, go ask @BotFather on Telegram 
 To get your chat id, open a chat with your bot, visit https://api.telegram.org/bot<YourBOTToken>/getUpdates in a browser, send the bot a message and refresh the page.
 
 Please provide absolute paths to the needed files. 
+
 
 ### Step 5 - Run!
 Run the script via `python3 PyT_Notifier.py` in your terminal.
