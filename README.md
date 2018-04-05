@@ -31,7 +31,7 @@ Open `settings.py` with a text editor of your choice and fill in your relevant d
 
 If you don't have a Telegram Bot API key already, go ask @BotFather on Telegram about it.
 
-To get your chat id, open a chat with your bot, visit https://api.telegram.org/bot<YourBOTToken>/getUpdates in a browser, send the bot a message and refresh the page.
+To get your chat id, open a chat with your bot, visit `https://api.telegram.org/bot<YourBOTToken>/getUpdates` in a browser, send the bot a message and refresh the page.
 
 Please provide absolute paths to the needed files. 
 
