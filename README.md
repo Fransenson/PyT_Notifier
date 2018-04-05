@@ -11,10 +11,11 @@ PyT_Notifier uses twx.botapi to send notifications. Therefore you need to instal
 **If you've installed Python(3.X) already, you can skip to step 2**
 
 ### Step 1 - Install Python
-Install Python 3.6: Follow the instructions on [the Python download page](https://www.python.org/downloads/)
+Install Python 3: Follow the instructions on [the Python download page](https://www.python.org/downloads/)
 
 ### Step 2 - Install twx.botapi
 Install the twx.botapi: `pip install twx.botapi`
+If you are facing issues with pip, see the [official instructions to install pip](https://packaging.python.org/tutorials/installing-packages/)
 
 ### Step 3 - Download PyT_Notifier
 Download the current version of PyT_Notifier from the [release page here on github](https://github.com/Fransenson/PyT_Notifier/releases)
