@@ -101,7 +101,7 @@ while True:
                             trigger = str(pyLogObject['sellLogData'][latestSaleCount - x]['triggerValue']) + "%"
                             dcaLevels = str(pyLogObject['sellLogData'][latestSaleCount - x]['boughtTimes'])
                             ##Compose message
-                            message = "\U0001F911 *SOLD:*" + os.linesep + "`{0:<12}\n{1:>18}\n{2:<12}\n{3:>18}\n{4:<12}\n{5:>18}\n{6:<12}\n{7:>18}\n{8:<12}\n{9:>18}\n{10:<12}\n{11:>18}\n`".format("_Coin:_",market,"_Amount:_",amount,"_Date:_",date,"_DCA Levels:_",dcaLevels,"_Trigger:_",trigger,"_Profit:_",profit)
+                            message = "\U0001F911 *SOLD:*" + os.linesep + "`{0:<12}\n{1:>18}\n{2:<12}\n{3:>18}\n{4:<12}\n{5:>18}\n{6:<12}\n{7:>18}\n{8:<12}\n{9:>18}\n{10:<12}\n{11:>18}\n`".format("Coin:",market,"Amount:",amount,"Date:",date,"DCA Levels:",dcaLevels,"Trigger:",trigger,"Profit:",profit)
                             result = bot.send_message(chat_id, message, parse_mode="Markdown").wait()
                             print("Sent SOLD message to Telegram!" + os.linesep)
 
@@ -122,7 +122,7 @@ while True:
                             avgPrice = str(pyLogObject['gainLogData'][latestPairsCount - x]['averageCalculator']['avgPrice'])
                             totalCost = str(pyLogObject['gainLogData'][latestPairsCount - x]['averageCalculator']['totalCost'])
                             ##Compose message
-                            message = "\U0001F4B8 *BOUGHT:*" + os.linesep + "`{0:<12}\n{1:>20}\n{2:<12}\n{3:>20}\n{4:<12}\n{5:>20}\n{6:<12}\n{7:>20}\n{8:<12}\n{9:>20}\n`".format("_Coin:_",market,"_Amount:_",amount,"_Date:_",date,"_Avg. Price:_",str(format(float(avgPrice),'.8f')),"_Total Cost:_",totalCost)
+                            message = "\U0001F4B8 *BOUGHT:*" + os.linesep + "`{0:<12}\n{1:>20}\n{2:<12}\n{3:>20}\n{4:<12}\n{5:>20}\n{6:<12}\n{7:>20}\n{8:<12}\n{9:>20}\n`".format("Coin:",market,"Amount:",amount,"Date:",date,"Avg. Price:",str(format(float(avgPrice),'.8f')),"Total Cost:",totalCost)
                             ##Send Message to Telegram Bot
                             result = bot.send_message(chat_id, message, parse_mode="Markdown").wait()
                             print("Sent BOUGHT message to Telegram!" + os.linesep)
@@ -146,7 +146,7 @@ while True:
                                 avgPrice = str(pyLogObject['dcaLogData'][latestDcaCount - x]['averageCalculator']['avgPrice'])
                                 boughtTimes = str(pyLogObject['dcaLogData'][latestDcaCount - x]['boughtTimes'])
                                 ##Compose message
-                                message = "\U0001F4B8\U0000203C *BOUGHT DCA:*" + os.linesep + "`{0:<12}\n{1:>20}\n{2:<12}\n{3:>20}\n{4:<12}\n{5:>20}\n{6:<12}\n{7:>20}\n{8:<12}\n{9:>20}\n{10:<12}\n{11:>20}\n`".format("_Coin:_", market, "_Total amount:_", amount, "_Date:_", date, "_Avg Price:_",str(format(float(avgPrice), '.8f')), "_Current Price:_",str(format(float(curPrice), '.8f')), "_DCA Level:_", boughtTimes)
+                                message = "\U0001F4B8\U0000203C *BOUGHT DCA:*" + os.linesep + "`{0:<12}\n{1:>20}\n{2:<12}\n{3:>20}\n{4:<12}\n{5:>20}\n{6:<12}\n{7:>20}\n{8:<12}\n{9:>20}\n{10:<12}\n{11:>20}\n`".format("Coin:", market, "Total amount:", amount, "Date:", date, "Avg Price:",str(format(float(avgPrice), '.8f')), "Current Price:",str(format(float(curPrice), '.8f')), "DCA Level:", boughtTimes)
                                 ##Send Message to Telegram Bot
                                 result = bot.send_message(chat_id, message, parse_mode="Markdown").wait()
                                 print("Sent DCA-BOUGHT message to Telegram!" + os.linesep)
