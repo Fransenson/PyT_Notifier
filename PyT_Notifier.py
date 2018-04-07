@@ -62,7 +62,7 @@ except:
 print("Done reading logfile till the end.")
 print("Starting to watch for new transactions...DO NOT CLOSE THIS WINDOW")
 
-aliveCounter = 20000
+aliveCounter = 60
 
 #Watchmode runtime
 result = bot.send_message(chat_id, "I am up and watching your trades! See you soon.").wait()
@@ -78,7 +78,7 @@ while True:
     aliveCounter -= 1
     if aliveCounter == 0:
         print("Don't worry, PyT_Notifier is still alive and watching! #hodltime")
-        aliveCounter = 20000
+        aliveCounter = 60
 
     with open(log_path, 'r') as f:
         f.seek(initialEndPos)
