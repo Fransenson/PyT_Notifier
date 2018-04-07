@@ -74,6 +74,7 @@ else:
 
 
 while True:
+    time.sleep(2)
     aliveCounter -= 1
     if aliveCounter == 0:
         print("Don't worry, PyT_Notifier is still alive and watching! #hodltime")
