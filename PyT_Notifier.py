@@ -121,9 +121,9 @@ while True:
                             profit = str(pyLogObject['sellLogData'][latestSaleCount - x]['profit']) + "%"
                             trigger = str(pyLogObject['sellLogData'][latestSaleCount - x]['triggerValue']) + "%"
                             dcaLevels = str(pyLogObject['sellLogData'][latestSaleCount - x]['boughtTimes'])
-                            sellStrat = str(pyLogObject['sellLogData'][latestSaleCount - x][])
+                            sellStrat = str(pyLogObject['sellLogData'][latestSaleCount - x]['sellStrategy'])
                             #Compose message
-                            message = "\U0001F911 *SOLD:*" + os.linesep + "`{0:<12}{1:>18}\n{2:<12}{3:>18}\n{4:<12}{5:>18}\n{6:<12}{7:>18}\n{8:<12}{9:>18}\n`".format("Coin:",market,"Amount:",amount,"DCA Levels:",dcaLevels,"Trigger:",trigger,"Profit:",profit)
+                            message = "\U0001F911 *SOLD:*" + os.linesep + "`{0:<12}{1:>18}\n{2:<12}{3:>18}\n{4:<12}{5:>18}\n{6:<12}{7:>18}\n{8:<12}{9:>18}\n{10:<12}{11:>18}\n`".format("Coin:",market,"Strategy:",sellStrat,"Amount:",amount,"DCA Levels:",dcaLevels,"Trigger:",trigger,"Profit:",profit)
                             result = bot.send_message(chat_id, message, parse_mode="Markdown").wait()
                             stamp = str(datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
                             print(stamp,"Sent SOLD message to Telegram!")
