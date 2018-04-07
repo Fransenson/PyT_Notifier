@@ -147,18 +147,18 @@ while True:
                             time.sleep(2)
 
                     if (pyLogObject['dcaLogData'][latestDcaCount - 1]['market'] == symbol) & ("BUY" in line):
-                                market = str(pyLogObject['dcaLogData'][latestDcaCount - 1]['market'])
-                                amount = str(pyLogObject['dcaLogData'][latestDcaCount - 1]['averageCalculator']['totalAmount'])
-                                curPrice = str(pyLogObject['dcaLogData'][latestDcaCount - 1]['currentPrice'])
-                                avgPrice = str(pyLogObject['dcaLogData'][latestDcaCount - 1]['averageCalculator']['avgPrice'])
-                                boughtTimes = str(pyLogObject['dcaLogData'][latestDcaCount - 1]['boughtTimes'])
-                                # Compose message if market = symbol that triggered the search
-                                message = "\U0001F4B8\U0000183C *BOUGHT DCA:*" + os.linesep + "`{0:<14}{1:>18}\n{2:<14}{3:>18}\n{4:<14}{5:>18}\n{6:<14}{7:>18}\n{8:<14}{9:>18}\n`".format("Coin:", market, "Total amount:", amount, "Avg Price:",str(format(float(avgPrice), '.8f')), "Current Price:",str(format(float(curPrice), '.8f')), "DCA Level:", boughtTimes)
-                                #Send Message to Telegram Bot
-                                result = bot.send_message(chat_id, message, parse_mode="Markdown").wait()
-                                stamp = str(datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
-                                print(stamp,"- Sent DCA-BOUGHT message to Telegram!")
-                                time.sleep(2)
+                            market = str(pyLogObject['dcaLogData'][latestDcaCount - 1]['market'])
+                            amount = str(pyLogObject['dcaLogData'][latestDcaCount - 1]['averageCalculator']['totalAmount'])
+                            curPrice = str(pyLogObject['dcaLogData'][latestDcaCount - 1]['currentPrice'])
+                            avgPrice = str(pyLogObject['dcaLogData'][latestDcaCount - 1]['averageCalculator']['avgPrice'])
+                            boughtTimes = str(pyLogObject['dcaLogData'][latestDcaCount - 1]['boughtTimes'])
+                            # Compose message if market = symbol that triggered the search
+                            message = "\U0001F4B8\U0000183C *BOUGHT DCA:*" + os.linesep + "`{0:<14}{1:>18}\n{2:<14}{3:>18}\n{4:<14}{5:>18}\n{6:<14}{7:>18}\n{8:<14}{9:>18}\n`".format("Coin:", market, "Total amount:", amount, "Avg Price:",str(format(float(avgPrice), '.8f')), "Current Price:",str(format(float(curPrice), '.8f')), "DCA Level:", boughtTimes)
+                            #Send Message to Telegram Bot
+                            result = bot.send_message(chat_id, message, parse_mode="Markdown").wait()
+                            stamp = str(datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
+                            print(stamp,"- Sent DCA-BOUGHT message to Telegram!")
+                            time.sleep(2)
                 time.sleep(0.5)
             initialEndPos = f.tell()
 
