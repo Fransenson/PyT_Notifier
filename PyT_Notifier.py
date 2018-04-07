@@ -112,7 +112,7 @@ while True:
                             sys.exit()
                 while True:
                     try:
-                        firstPyLogObject = json.loads(jsonData)
+                        pyLogObject = json.loads(jsonData)
                         break
                     except:
                         time.sleep(2)
