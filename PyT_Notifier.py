@@ -91,38 +91,23 @@ while True:
                         for x in range(1, saleCountDiff + 1):
                             ##Get relevant data
                             market = str(pyLogObject['sellLogData'][latestSaleCount - x]['market'])
-                            date = str(pyLogObject['sellLogData'][latestSaleCount - x]['soldDate']['date']['day']) + "." + str(
-                                pyLogObject['sellLogData'][latestSaleCount - x]['soldDate']['date']['month']) + "." + str(
-                                pyLogObject['sellLogData'][latestSaleCount - x]['soldDate']['date']['year']) + " - " + str(
-                                pyLogObject['sellLogData'][latestSaleCount - x]['soldDate']['time']['hour']) + ":" + str(
-                                pyLogObject['sellLogData'][latestSaleCount - x]['soldDate']['time']['minute'])
                             amount = str(pyLogObject['sellLogData'][latestSaleCount - x]['soldAmount'])
                             profit = str(pyLogObject['sellLogData'][latestSaleCount - x]['profit']) + "%"
                             trigger = str(pyLogObject['sellLogData'][latestSaleCount - x]['triggerValue']) + "%"
                             dcaLevels = str(pyLogObject['sellLogData'][latestSaleCount - x]['boughtTimes'])
                             ##Compose message
-                            message = "\U0001F911 *SOLD:*" + os.linesep + "`{0:<12}\n{1:>18}\n{2:<12}\n{3:>18}\n{4:<12}\n{5:>18}\n{6:<12}\n{7:>18}\n{8:<12}\n{9:>18}\n{10:<12}\n{11:>18}\n`".format("Coin:",market,"Amount:",amount,"Date:",date,"DCA Levels:",dcaLevels,"Trigger:",trigger,"Profit:",profit)
+                            message = "\U0001F911 *SOLD:*" + os.linesep + "`{0:<12}{1:>18}\n{2:<12}{3:>18}\n{4:<12}{5:>18}\n{6:<12}{7:>18}\n{8:<12}{9:>18}\n`".format("Coin:",market,"Amount:",amount,"DCA Levels:",dcaLevels,"Trigger:",trigger,"Profit:",profit)
                             result = bot.send_message(chat_id, message, parse_mode="Markdown").wait()
                             print("Sent SOLD message to Telegram!" + os.linesep)
 
                     if pairsCountDiff > 0:
                         for x in range(1, pairsCountDiff + 1):
                             market = str(pyLogObject['gainLogData'][latestPairsCount - x]['market'])
-                            date = str(pyLogObject['gainLogData'][latestPairsCount - x]['averageCalculator']['firstBoughtDate'][
-                                           'date']['day']) + "." + str(
-                                pyLogObject['gainLogData'][latestPairsCount - x]['averageCalculator']['firstBoughtDate'][
-                                    'date']['month']) + "." + str(
-                                pyLogObject['gainLogData'][latestPairsCount - x]['averageCalculator']['firstBoughtDate'][
-                                    'date']['year']) + " - " + str(
-                                pyLogObject['gainLogData'][latestPairsCount - x]['averageCalculator']['firstBoughtDate'][
-                                    'time']['hour']) + ":" + str(
-                                pyLogObject['gainLogData'][latestPairsCount - x]['averageCalculator']['firstBoughtDate'][
-                                    'time']['minute'])
                             amount = str(pyLogObject['gainLogData'][latestPairsCount - x]['averageCalculator']['totalAmount'])
                             avgPrice = str(pyLogObject['gainLogData'][latestPairsCount - x]['averageCalculator']['avgPrice'])
                             totalCost = str(pyLogObject['gainLogData'][latestPairsCount - x]['averageCalculator']['totalCost'])
                             ##Compose message
-                            message = "\U0001F4B8 *BOUGHT:*" + os.linesep + "`{0:<12}\n{1:>20}\n{2:<12}\n{3:>20}\n{4:<12}\n{5:>20}\n{6:<12}\n{7:>20}\n{8:<12}\n{9:>20}\n`".format("Coin:",market,"Amount:",amount,"Date:",date,"Avg. Price:",str(format(float(avgPrice),'.8f')),"Total Cost:",totalCost)
+                            message = "\U0001F4B8 *BOUGHT:*" + os.linesep + "`{0:<12}{1:>20}\n{2:<12}{3:>20}\n{4:<12}{5:>20}\n{6:<12}{7:>20}\n`".format("Coin:",market,"Amount:",amount,"Avg. Price:",str(format(float(avgPrice),'.8f')),"Total Cost:",str(format(float(totalCost),'.4f')))
                             ##Send Message to Telegram Bot
                             result = bot.send_message(chat_id, message, parse_mode="Markdown").wait()
                             print("Sent BOUGHT message to Telegram!" + os.linesep)
@@ -130,23 +115,12 @@ while True:
                     if dcaCountDiff > 0:
                         for x in range(1, dcaCountDiff + 1):
                                 market = str(pyLogObject['dcaLogData'][latestDcaCount - x]['market'])
-                                date = str(
-                                    pyLogObject['dcaLogData'][latestDcaCount - x]['averageCalculator']['firstBoughtDate'][
-                                        'date']['day']) + "." + str(
-                                    pyLogObject['dcaLogData'][latestDcaCount - x]['averageCalculator']['firstBoughtDate'][
-                                        'date']['month']) + "." + str(
-                                    pyLogObject['dcaLogData'][latestDcaCount - x]['averageCalculator']['firstBoughtDate'][
-                                        'date']['year']) + " - " + str(
-                                    pyLogObject['dcaLogData'][latestDcaCount - x]['averageCalculator']['firstBoughtDate'][
-                                        'time']['hour']) + ":" + str(
-                                    pyLogObject['dcaLogData'][latestDcaCount - x]['averageCalculator']['firstBoughtDate'][
-                                        'time']['minute'])
                                 amount = str(pyLogObject['dcaLogData'][latestDcaCount - x]['averageCalculator']['totalAmount'])
                                 curPrice = str(pyLogObject['dcaLogData'][latestDcaCount - x]['currentPrice'])
                                 avgPrice = str(pyLogObject['dcaLogData'][latestDcaCount - x]['averageCalculator']['avgPrice'])
                                 boughtTimes = str(pyLogObject['dcaLogData'][latestDcaCount - x]['boughtTimes'])
                                 ##Compose message
-                                message = "\U0001F4B8\U0000203C *BOUGHT DCA:*" + os.linesep + "`{0:<12}\n{1:>20}\n{2:<12}\n{3:>20}\n{4:<12}\n{5:>20}\n{6:<12}\n{7:>20}\n{8:<12}\n{9:>20}\n{10:<12}\n{11:>20}\n`".format("Coin:", market, "Total amount:", amount, "Date:", date, "Avg Price:",str(format(float(avgPrice), '.8f')), "Current Price:",str(format(float(curPrice), '.8f')), "DCA Level:", boughtTimes)
+                                message = "\U0001F4B8\U0000203C *BOUGHT DCA:*" + os.linesep + "`{0:<12}{1:>20}\n{2:<12}{3:>20}\n{4:<12}{5:>20}\n{6:<12}{7:>20}\n{8:<12}{9:>20}\n`".format("Coin:", market, "Total amount:", amount, "Avg Price:",str(format(float(avgPrice), '.8f')), "Current Price:",str(format(float(curPrice), '.8f')), "DCA Level:", boughtTimes)
                                 ##Send Message to Telegram Bot
                                 result = bot.send_message(chat_id, message, parse_mode="Markdown").wait()
                                 print("Sent DCA-BOUGHT message to Telegram!" + os.linesep)
