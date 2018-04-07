@@ -87,6 +87,26 @@ while True:
             continue
         else:
             for line in lines:
+                crashTimer = 10
+                while True:
+                    try:
+                        with open(data_path, 'r') as myfile:
+                            jsonData = myfile.read().replace('\n', '')
+                            break
+                    except:
+                        time.sleep(2)
+                        if crashTimer >= 0:
+                            crashTimer -= 1
+                            continue
+                        else:
+                            print("Could not read JSON File, even after 10 tries! Restart script to try again.")
+                            result = bot.send_message(chat_id,
+                                                      "I stopped working because of problems with the JSON file. Please restart me!")
+                            sys.exit()
+                pyLogObject = json.loads(jsonData)
+                latestSaleCount = len(pyLogObject['sellLogData'])
+                latestPairsCount = len(pyLogObject['gainLogData'])
+                latestDcaCount = len(pyLogObject['dcaLogData'])
                 buysell     = ("BUY", "SELL")
                 filled      = ("FILLED", "Get order information")
                 if any(s in line for s in buysell) & all(f in line for f in filled):
@@ -94,25 +114,7 @@ while True:
                     compiled    = re.compile(pattern)
                     match       = compiled.search(line)
                     symbol      = match.group(2)
-                    crashTimer = 10
-                    while True:
-                        try:
-                            with open(data_path, 'r') as myfile:
-                                jsonData = myfile.read().replace('\n', '')
-                                break
-                        except:
-                            time.sleep(2)
-                            if crashTimer >= 0:
-                                crashTimer -= 1
-                                continue
-                            else:
-                                print("Could not read JSON File, even after 10 tries! Restart script to try again.")
-                                result = bot.send_message(chat_id, "I stopped working because of problems with the JSON file. Please restart me!")
-                                sys.exit()
-                    pyLogObject     = json.loads(jsonData)
-                    latestSaleCount = len(pyLogObject['sellLogData'])
-                    latestPairsCount= len(pyLogObject['gainLogData'])
-                    latestDcaCount  = len(pyLogObject['dcaLogData'])
+
 
                     saleCountDiff   = latestSaleCount - firstSaleCount
                     pairsCountDiff  = latestPairsCount - firstPairsCount
