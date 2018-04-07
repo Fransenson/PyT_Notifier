@@ -41,8 +41,15 @@ while True:
             print("Could not read JSON File, even after 10 tries! Restart script to try again.")
             result = bot.send_message(chat_id,"I stopped working because of problems with the JSON file. Please restart me!")
             sys.exit()
+while True:
+    try:
+        firstPyLogObject    = json.loads(jsonData)
+        break
+    except:
+        time.sleep(2)
+        print("JSON is empty! Trying again")
+        continue
 
-firstPyLogObject    = json.loads(jsonData)
 
 firstSaleCount      = len(firstPyLogObject['sellLogData'])
 firstPairsCount     = len(firstPyLogObject['gainLogData'])
@@ -103,7 +110,14 @@ while True:
                             result = bot.send_message(chat_id,
                                                       "I stopped working because of problems with the JSON file. Please restart me!")
                             sys.exit()
-                pyLogObject = json.loads(jsonData)
+                while True:
+                    try:
+                        firstPyLogObject = json.loads(jsonData)
+                        break
+                    except:
+                        time.sleep(2)
+                        print("JSON is empty! Trying again")
+                        continue
                 latestSaleCount = len(pyLogObject['sellLogData'])
                 latestPairsCount = len(pyLogObject['gainLogData'])
                 latestDcaCount = len(pyLogObject['dcaLogData'])
