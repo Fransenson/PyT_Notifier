@@ -39,15 +39,13 @@ print("Current DCA Entries: ", firstDcaCount)
 time.sleep(2)
 
 
-lastLine = None
+
 with open(log_path, 'r') as f:
     while True:
         line = f.readline()
         if not line:
             initialEndPos = f.tell()
             break
-        else:
-            lastLine = line
 
 print("Done reading logfile till the end.")
 print("Starting to watch for new transactions...DO NOT CLOSE THIS WINDOW")
@@ -99,7 +97,7 @@ while True:
                             ##Compose message
                             message = "\U0001F911 *SOLD:*" + os.linesep + "`{0:<12}{1:>18}\n{2:<12}{3:>18}\n{4:<12}{5:>18}\n{6:<12}{7:>18}\n{8:<12}{9:>18}\n`".format("Coin:",market,"Amount:",amount,"DCA Levels:",dcaLevels,"Trigger:",trigger,"Profit:",profit)
                             result = bot.send_message(chat_id, message, parse_mode="Markdown").wait()
-                            stamp = str(datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
+                            stamp = str(datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
                             print(stamp,"Sent SOLD message to Telegram!")
 
                     if pairsCountDiff > 0:
@@ -112,7 +110,7 @@ while True:
                             message = "\U0001F4B8 *BOUGHT:*" + os.linesep + "`{0:<12}{1:>20}\n{2:<12}{3:>20}\n{4:<12}{5:>20}\n{6:<12}{7:>20}\n`".format("Coin:",market,"Amount:",amount,"Avg. Price:",str(format(float(avgPrice),'.8f')),"Total Cost:",str(format(float(totalCost),'.4f')))
                             ##Send Message to Telegram Bot
                             result = bot.send_message(chat_id, message, parse_mode="Markdown").wait()
-                            stamp = str(datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
+                            stamp = str(datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
                             print(stamp,"Sent BOUGHT message to Telegram!")
 
                     if dcaCountDiff > 0:
@@ -126,7 +124,7 @@ while True:
                                 message = "\U0001F4B8\U0000203C *BOUGHT DCA:*" + os.linesep + "`{0:<12}{1:>20}\n{2:<12}{3:>20}\n{4:<12}{5:>20}\n{6:<12}{7:>20}\n{8:<12}{9:>20}\n`".format("Coin:", market, "Total amount:", amount, "Avg Price:",str(format(float(avgPrice), '.8f')), "Current Price:",str(format(float(curPrice), '.8f')), "DCA Level:", boughtTimes)
                                 ##Send Message to Telegram Bot
                                 result = bot.send_message(chat_id, message, parse_mode="Markdown").wait()
-                                stamp = str(datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
+                                stamp = str(datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
                                 print(stamp,"Sent DCA-BOUGHT message to Telegram!")
 
                     ##Set current LogDataCount from the .json as new base for comparison
@@ -134,7 +132,7 @@ while True:
                     firstPairsCount = len(pyLogObject['gainLogData'])
                     firstDcaCount   = len(pyLogObject['dcaLogData'])
                 time.sleep(5)
-
+            initialEndPos = f.tell()
 
 
 
