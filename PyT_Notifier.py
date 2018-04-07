@@ -110,6 +110,7 @@ while True:
                 buysell     = ("BUY", "SELL")
                 filled      = ("FILLED", "Get order information")
                 if any(s in line for s in buysell) & all(f in line for f in filled):
+                    time.sleep(1)
                     pattern     = "(\"symbol\":\")([A-Z]{6,8})(\")"
                     compiled    = re.compile(pattern)
                     match       = compiled.search(line)
