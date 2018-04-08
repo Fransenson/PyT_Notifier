@@ -128,18 +128,18 @@ while True:
                         else:
                             result_exists = True
                         if (result_exists ):
-                        #Get relevant data
-                        market      = str(result['market'])
-                        amount      = str(result['soldAmount'])
-                        profit      = str(result['profit']) + "%"
-                        trigger     = str(result['triggerValue']) + "%"
-                        dcaLevels   = str(result['boughtTimes'])
-                        sellStrat   = str(result['sellStrategy'])
-                        #Compose message if market = symbol that triggered the search
-                        message     = "\U0001F911 *SOLD:*" + os.linesep + "`{0:<12}{1:>18}\n{2:<12}{3:>18}\n{4:<12}{5:>18}\n{6:<12}{7:>18}\n{8:<12}{9:>18}\n{10:<12}{11:>18}\n`".format("Coin:",market,"Strategy:",sellStrat,"Amount:",amount,"DCA Levels:",dcaLevels,"Trigger:",trigger,"Profit:",profit)
-                        result      = bot.send_message(chat_id, message, parse_mode="Markdown").wait()
-                        stamp       = str(datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
-                        print(stamp,"- Sent SOLD message to Telegram!")
+                            #Get relevant data
+                            market      = str(result['market'])
+                            amount      = str(result['soldAmount'])
+                            profit      = str(result['profit']) + "%"
+                            trigger     = str(result['triggerValue']) + "%"
+                            dcaLevels   = str(result['boughtTimes'])
+                            sellStrat   = str(result['sellStrategy'])
+                            #Compose message if market = symbol that triggered the search
+                            message     = "\U0001F911 *SOLD:*" + os.linesep + "`{0:<12}{1:>18}\n{2:<12}{3:>18}\n{4:<12}{5:>18}\n{6:<12}{7:>18}\n{8:<12}{9:>18}\n{10:<12}{11:>18}\n`".format("Coin:",market,"Strategy:",sellStrat,"Amount:",amount,"DCA Levels:",dcaLevels,"Trigger:",trigger,"Profit:",profit)
+                            result      = bot.send_message(chat_id, message, parse_mode="Markdown").wait()
+                            stamp       = str(datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
+                            print(stamp,"- Sent SOLD message to Telegram!")
                     #...or was it a buy? Then see if it was DCA or not!
                     if "BUY" in line:
                         for x in range(0, len(pyLogObject['gainLogData'])):
