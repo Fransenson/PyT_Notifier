@@ -92,7 +92,7 @@ while True:
             for line in lines:
                 #If there is a transaction within the current line, go on with the message composer
                 if any(s in line for s in ("BUY", "SELL")) & all(f in line for f in ("FILLED", "Get order information")):
-                    time.sleep(2)
+                    time.sleep(10)
                     crashTimer = 10
                     while True:
                         try:
