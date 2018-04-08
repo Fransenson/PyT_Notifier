@@ -189,6 +189,7 @@ while True:
                                     print(stamp, "- Found Buy! Sent DCA-BOUGHT message to Telegram!")
 
                         else:
+                            gainResult_exisits : True
                              if gainResult_exists:
                                 market      = str(gainResult['market'])
                                 amount      = str(gainResult['averageCalculator']['totalAmount'])
