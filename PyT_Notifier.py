@@ -94,23 +94,23 @@ while True:
                 if any(s in line for s in ("BUY", "SELL")) & all(f in line for f in ("FILLED", "Get order information")):
                     stamp = str(datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
                     print(stamp, "FOUND A TRANSACTION! Waiting for JSON to update")
-                    #Wait for json to change 2x
+                    # Wait for json to change 2x
                     updateCount = 0
                     while True:
-                            secondModTime = os.path.getmtime(data_path)
-                            if firstModTime == secondModTime:
-                                time.sleep(1)
-                                stamp = str(datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
-                                print(stamp,"still waiting for JSON to update twice.")
-                                continue
+                        secondModTime = os.path.getmtime(data_path)
+                        if firstModTime == secondModTime:
+                            time.sleep(1)
+                            stamp = str(datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
+                            print(stamp, "still waiting for JSON to update twice.")
+                            continue
+                        else:
+                            updateCount += 1
+                            stamp = str(datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
+                            print(stamp, "Update", updateCount, "of 2 found!")
+                            if updateCount == 2:
+                                break
                             else:
-                                updateCount += 1
-                                stamp = str(datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
-                                print(stamp,"Update",updateCount, "of 2 found!")
-                                if updateCount == 2:
-                                    break
-                                else:
-                                    continue
+                                continue
 
                     crashTimer = 10
                     while True:
@@ -156,17 +156,18 @@ while True:
                         if (sellResult_exists):
                             # Get relevant data
                             market = str(sellResult['market'])
-                            #amount = str(sellResult['soldAmount'])
+                            # amount = str(sellResult['soldAmount'])
                             profit = str(sellResult['profit']) + "%"
                             trigger = str(sellResult['triggerValue']) + "%"
                             dcaLevels = str(sellResult['boughtTimes'])
                             avgCost = str(sellResult['averageCalculator']['avgCost'])
                             sellStrat = str(sellResult['sellStrategy'])
-                            coinProfit = (avgCost * (1+(profit/100)))-avgCost
+                            coinProfit = (avgCost * (1 + (profit / 100))) - avgCost
                             # Compose message if market = symbol that triggered the search
                             message = "\U0001F911 *SOLD:*" + os.linesep + "`{0:<12}{1:>18}\n{2:<12}{3:>18}\n{4:<12}{5:>18}\n{6:<12}{7:>18}\n{8:<12}{9:>18}\n{10:<12}{11:>18}\n`".format(
                                 "Coin:", market, "Strategy:", sellStrat, "DCA Levels:", dcaLevels,
-                                "Trigger:", trigger, "Profit:", profit, "Coin Profit:", str(format(float(coinProfit),'.8f')))
+                                "Trigger:", trigger, "Profit:", profit, "Coin Profit:",
+                                str(format(float(coinProfit), '.8f')))
                             sent = bot.send_message(chat_id, message, parse_mode="Markdown").wait()
                             stamp = str(datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
                             print(stamp, "- Found Sale! Sent SOLD message to Telegram!")
@@ -176,7 +177,7 @@ while True:
                         stamp = str(datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
                         print(stamp, "It's a buy!")
                         buyFound = False
-                        while buyFound ==  False:
+                        while buyFound == False:
                             while True:
                                 try:
                                     with open(data_path, 'r') as myfile:
