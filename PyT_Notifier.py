@@ -58,7 +58,7 @@ try:
                 break
 except:
     print("Path to Logfile seems to be wrong. Please check the settings and restart me. Quitting...")
-    time.sleep(3)
+    time.sleep(1)
     sys.exit()
 
 # Finalizing startup
@@ -106,7 +106,7 @@ while True:
                             else:
                                 updateCount += 1
                                 stamp = str(datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
-                                print(stamp,"Update",upDateCount, "of 2 found!")
+                                print(stamp,"Update",updateCount, "of 2 found!")
                                 if updateCount == 2:
                                     break
                                 else:
