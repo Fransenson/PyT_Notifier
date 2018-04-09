@@ -170,58 +170,78 @@ while True:
 
                         stamp = str(datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
                         print(stamp, "It's a buy!")
-
-                        for x in range(0, len(pyLogObject['gainLogData'])):
-                            if symbol in str(pyLogObject['gainLogData'][x]):
-                                gainResult = pyLogObject['gainLogData'][x]
-                        try:
-                            gainResult
-                        except NameError:
-                            gainResult_exists = False
-                            stamp = str(datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
-                            print("Found no entry in pairs log with matching symbol:", symbol,
-                                  "Looking at DCA log now...")
-                            for x in range(0, len(pyLogObject['dcaLogData'])):
-                                if symbol in str(pyLogObject['dcaLogData'][x]):
-                                    dcaResult = pyLogObject['dcaLogData'][x]
+                        buyFound = False
+                        while buyFound ==  False:
+                            while True:
+                                try:
+                                    with open(data_path, 'r') as myfile:
+                                        jsonData = myfile.read().replace('\n', '')
+                                    pyLogObject = json.loads(jsonData)
+                                    break
+                                except:
+                                    time.sleep(2)
+                                    if crashTimer >= 0:
+                                        crashTimer -= 1
+                                        continue
+                                    else:
+                                        print(
+                                            "Could not read JSON File, even after 10 tries! Restart script to try again.")
+                                        sent = bot.send_message(chat_id,
+                                                                "I stopped working because of problems with the JSON file. Please restart me!")
+                                        sys.exit()
+                            for x in range(0, len(pyLogObject['gainLogData'])):
+                                if symbol in str(pyLogObject['gainLogData'][x]):
+                                    gainResult = pyLogObject['gainLogData'][x]
                             try:
-                                dcaResult
+                                gainResult
                             except NameError:
-                                print("Found no entry in DCA log with matching symbol:", symbol, "No message sent.")
-                                dcaResult_exists = False
+                                gainResult_exists = False
+                                stamp = str(datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
+                                print("Found no entry in pairs log with matching symbol:", symbol,
+                                      "Looking at DCA log now...")
+                                for x in range(0, len(pyLogObject['dcaLogData'])):
+                                    if symbol in str(pyLogObject['dcaLogData'][x]):
+                                        dcaResult = pyLogObject['dcaLogData'][x]
+                                try:
+                                    dcaResult
+                                except NameError:
+                                    print("Found no entry in DCA log with matching symbol:", symbol, "No message sent.")
+                                    dcaResult_exists = False
+                                else:
+                                    dcaResult_exists = True
+                                    if dcaResult_exists:
+                                        market = str(dcaResult['market'])
+                                        amount = str(dcaResult['averageCalculator']['totalAmount'])
+                                        curPrice = str(dcaResult['currentPrice'])
+                                        avgPrice = str(dcaResult['averageCalculator']['avgPrice'])
+                                        boughtTimes = str(dcaResult['boughtTimes'])
+                                        # Compose message if market = symbol that triggered the search
+                                        message = "\U0001F4B8\U0000183C *BOUGHT DCA:*" + os.linesep + "`{0:<14}{1:>18}\n{2:<14}{3:>18}\n{4:<14}{5:>18}\n{6:<14}{7:>18}\n{8:<14}{9:>18}\n`".format(
+                                            "Coin:", market, "Total amount:", amount, "Avg Price:",
+                                            str(format(float(avgPrice), '.8f')), "Current Price:",
+                                            str(format(float(curPrice), '.8f')), "DCA Level:", boughtTimes)
+                                        # Send Message to Telegram Bot
+                                        sent = bot.send_message(chat_id, message, parse_mode="Markdown").wait()
+                                        stamp = str(datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
+                                        print(stamp, "- Found Buy! Sent DCA-BOUGHT message to Telegram!")
+                                        buyFound = True
                             else:
-                                dcaResult_exists = True
-                                if dcaResult_exists:
-                                    market = str(dcaResult['market'])
-                                    amount = str(dcaResult['averageCalculator']['totalAmount'])
-                                    curPrice = str(dcaResult['currentPrice'])
-                                    avgPrice = str(dcaResult['averageCalculator']['avgPrice'])
-                                    boughtTimes = str(dcaResult['boughtTimes'])
+                                gainResult_exisits = True
+                                if gainResult_exists:
+                                    market = str(gainResult['market'])
+                                    amount = str(gainResult['averageCalculator']['totalAmount'])
+                                    avgPrice = str(gainResult['averageCalculator']['avgPrice'])
+                                    totalCost = str(gainResult['averageCalculator']['totalCost'])
                                     # Compose message if market = symbol that triggered the search
-                                    message = "\U0001F4B8\U0000183C *BOUGHT DCA:*" + os.linesep + "`{0:<14}{1:>18}\n{2:<14}{3:>18}\n{4:<14}{5:>18}\n{6:<14}{7:>18}\n{8:<14}{9:>18}\n`".format(
-                                        "Coin:", market, "Total amount:", amount, "Avg Price:",
-                                        str(format(float(avgPrice), '.8f')), "Current Price:",
-                                        str(format(float(curPrice), '.8f')), "DCA Level:", boughtTimes)
-                                    # Send Message to Telegram Bot
+                                    message = "\U0001F4B8 *BOUGHT:*" + os.linesep + "`{0:<12}{1:>20}\n{2:<12}{3:>20}\n{4:<12}{5:>20}\n{6:<12}{7:>20}\n`".format(
+                                        "Coin:", market, "Amount:", amount, "Avg. Price:",
+                                        str(format(float(avgPrice), '.8f')), "Total Cost:",
+                                        str(format(float(totalCost), '.4f')))
                                     sent = bot.send_message(chat_id, message, parse_mode="Markdown").wait()
                                     stamp = str(datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
-                                    print(stamp, "- Found Buy! Sent DCA-BOUGHT message to Telegram!")
-
-                        else:
-                            gainResult_exisits = True
-                            if gainResult_exists:
-                                market = str(gainResult['market'])
-                                amount = str(gainResult['averageCalculator']['totalAmount'])
-                                avgPrice = str(gainResult['averageCalculator']['avgPrice'])
-                                totalCost = str(gainResult['averageCalculator']['totalCost'])
-                                # Compose message if market = symbol that triggered the search
-                                message = "\U0001F4B8 *BOUGHT:*" + os.linesep + "`{0:<12}{1:>20}\n{2:<12}{3:>20}\n{4:<12}{5:>20}\n{6:<12}{7:>20}\n`".format(
-                                    "Coin:", market, "Amount:", amount, "Avg. Price:",
-                                    str(format(float(avgPrice), '.8f')), "Total Cost:",
-                                    str(format(float(totalCost), '.4f')))
-                                sent = bot.send_message(chat_id, message, parse_mode="Markdown").wait()
-                                stamp = str(datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
-                                print(stamp, "- Found Buy! Sent BOUGHT message to Telegram!")
+                                    print(stamp, "- Found Buy! Sent BOUGHT message to Telegram!")
+                                    buyFound = True
+                            time.sleep(1)
                 time.sleep(0.5)
             # after each line, memorize current position in the logfile
             initialEndPos = f.tell()
