@@ -76,6 +76,7 @@ aliveCounter = 60
 while True:
     time.sleep(2)
     aliveCounter -= 1
+    firstModTime = os.path.getmtime(data_path)
     if aliveCounter == 0:
         stamp = str(datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
         print(stamp, "Don't worry, PyT_Notifier is still alive and watching! #hodltime")
@@ -93,16 +94,17 @@ while True:
                 if any(s in line for s in ("BUY", "SELL")) & all(f in line for f in ("FILLED", "Get order information")):
                     stamp = str(datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
                     print(stamp, "FOUND A TRANSACTION! Waiting for JSON to update")
-                    firstModTime = os.path.getmtime(data_path)
                     #Wait for json to change
                     while True:
                             secondModTime = os.path.getmtime(data_path)
                             if firstModTime == secondModTime:
                                 time.sleep(2)
-                                print("still waiting for JSON to update)")
+                                stamp = str(datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
+                                print(stamp,"still waiting for JSON to update.")
                                 continue
                             else:
-                                print("Update found!")
+                                stamp = str(datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
+                                print(stamp,"Update found!")
                                 break
 
                     crashTimer = 10
@@ -149,15 +151,17 @@ while True:
                         if (sellResult_exists):
                             # Get relevant data
                             market = str(sellResult['market'])
-                            amount = str(sellResult['soldAmount'])
+                            #amount = str(sellResult['soldAmount'])
                             profit = str(sellResult['profit']) + "%"
                             trigger = str(sellResult['triggerValue']) + "%"
                             dcaLevels = str(sellResult['boughtTimes'])
+                            avgCost = str(sellResult['averageCalculator']['avgCost'])
                             sellStrat = str(sellResult['sellStrategy'])
+                            coinProfit = (avgCost * (1+(profit/100)))-avgCost
                             # Compose message if market = symbol that triggered the search
                             message = "\U0001F911 *SOLD:*" + os.linesep + "`{0:<12}{1:>18}\n{2:<12}{3:>18}\n{4:<12}{5:>18}\n{6:<12}{7:>18}\n{8:<12}{9:>18}\n{10:<12}{11:>18}\n`".format(
-                                "Coin:", market, "Strategy:", sellStrat, "Amount:", amount, "DCA Levels:", dcaLevels,
-                                "Trigger:", trigger, "Profit:", profit)
+                                "Coin:", market, "Strategy:", sellStrat, "DCA Levels:", dcaLevels,
+                                "Trigger:", trigger, "Profit:", profit, "Coin Profit:", str(format(float(coinProfit),'.8f')))
                             sent = bot.send_message(chat_id, message, parse_mode="Markdown").wait()
                             stamp = str(datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
                             print(stamp, "- Found Sale! Sent SOLD message to Telegram!")
