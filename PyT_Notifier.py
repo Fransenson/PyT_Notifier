@@ -94,18 +94,23 @@ while True:
                 if any(s in line for s in ("BUY", "SELL")) & all(f in line for f in ("FILLED", "Get order information")):
                     stamp = str(datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
                     print(stamp, "FOUND A TRANSACTION! Waiting for JSON to update")
-                    #Wait for json to change
+                    #Wait for json to change 2x
+                    updateCount = 0
                     while True:
                             secondModTime = os.path.getmtime(data_path)
                             if firstModTime == secondModTime:
-                                time.sleep(2)
+                                time.sleep(1)
                                 stamp = str(datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
-                                print(stamp,"still waiting for JSON to update.")
+                                print(stamp,"still waiting for JSON to update twice.")
                                 continue
                             else:
+                                updateCount += 1
                                 stamp = str(datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
-                                print(stamp,"Update found!")
-                                break
+                                print(stamp,"Update",upDateCount, "of 2 found!")
+                                if updateCount == 2:
+                                    break
+                                else:
+                                    continue
 
                     crashTimer = 10
                     while True:
