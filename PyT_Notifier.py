@@ -91,7 +91,8 @@ while True:
         else:
             for line in lines:
                 # If there is a transaction within the current line, go on with the message composer
-                if any(s in line for s in ("BUY", "SELL")) & all(f in line for f in ("FILLED", "Get order information")):
+                if any(s in line for s in ("BUY", "SELL")) & all(
+                        f in line for f in ("FILLED", "Get order information")):
                     stamp = str(datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
                     print(stamp, "FOUND A TRANSACTION! Waiting for JSON to update")
                     # Wait for json to change 2x
@@ -162,7 +163,7 @@ while True:
                             dcaLevels = str(sellResult['boughtTimes'])
                             avgCost = str(sellResult['averageCalculator']['avgCost'])
                             sellStrat = str(sellResult['sellStrategy'])
-                            coinProfit = (avgCost * (1 + (profit / 100))) - avgCost
+                            coinProfit = (sellResult['averageCalculator']['avgCost'] * (1 + (sellResult['profit'] / 100))) - sellResult['averageCalculator']['avgCost']
                             # Compose message if market = symbol that triggered the search
                             message = "\U0001F911 *SOLD:*" + os.linesep + "`{0:<12}{1:>18}\n{2:<12}{3:>18}\n{4:<12}{5:>18}\n{6:<12}{7:>18}\n{8:<12}{9:>18}\n{10:<12}{11:>18}\n`".format(
                                 "Coin:", market, "Strategy:", sellStrat, "DCA Levels:", dcaLevels,
