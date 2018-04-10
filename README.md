@@ -13,6 +13,7 @@ PyT_Notifier uses twx.botapi to send notifications. Therefore you need to instal
 ### Step 1 - Install Python
 Install Python 3: Follow the instructions on [the Python download page](https://www.python.org/downloads/)
 
+____
 
 ### Step 2 - Install twx.botapi
 First, check if pip3 is installed: `pip3 -V` - if this reports an issue: see below.
@@ -26,11 +27,12 @@ If you are facing issues with pip3, see the [official instructions to install pi
 
 `sudo apt-get install python3-pip`
 
+____
 
 ### Step 3 - Download PyT_Notifier
 Download the current version of PyT_Notifier from the [release page here on GitHub](https://github.com/Fransenson/PyT_Notifier/releases)
 
-
+____
 ### Step 4 - Change settings as needed
 Open `settings.py` with a text editor of your choice and fill in your relevant data. 
 
@@ -40,13 +42,13 @@ To get your chat id, open a chat with your bot, visit `https://api.telegram.org/
 
 Please provide absolute paths to the needed files. 
 
-
+____
 ### Step 5 - Run!
 Run the script via `python3 PyT_Notifier.py` in your terminal.
 
 If you are using pm2 just go with `pm2 start PyT_Notifier.py --interpreter python3`
 
-
+____
 ## Feedback
 Please report any issues here on GitHub. 
 
