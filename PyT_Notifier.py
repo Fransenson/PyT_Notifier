@@ -92,9 +92,10 @@ while True:
                 # If there is a transaction within the current line, go on with the message composer
 
                 if any(side in line for side in ("BUY", "SELL")) & all(orderinf in line for orderinf in ("Get order information")) & any(fillex in line for fillex in("FILLED", "EXPIRED")):
+                    splitLine = line.split('--')
+                    jsonLine = json.loads(str(splitLine[1]))
                     if (float(format(float(jsonLine['executedQty']),'.4f')) > 0):
-                        splitLine = line.split('--')
-                        jsonLine = json.loads(str(splitLine[1]))
+
                         symbol = jsonLine['symbol']
                         stamp = str(datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
                         print(stamp, "FOUND A TRANSACTION! Waiting for JSON to update")
