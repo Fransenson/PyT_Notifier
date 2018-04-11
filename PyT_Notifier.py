@@ -148,7 +148,8 @@ while True:
                                     sellResult
                                 except NameError:
                                     sellResult_exists = False
-                                    print("Found no sale with matching symbol:", symbol)
+                                    stamp = str(datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
+                                    print(stamp, "Found no sale with matching symbol:", symbol)
                                 else:
                                     sellResult_exists = True
                                 if (sellResult_exists):
@@ -189,8 +190,8 @@ while True:
                                             crashTimer -= 1
                                             continue
                                         else:
-                                            print(
-                                                "Could not read JSON File, even after 10 tries! Restart script to try again.")
+                                            stamp = str(datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
+                                            print(stamp,"Could not read JSON File, even after 10 tries! Restart script to try again.")
                                             sent = bot.send_message(chat_id,
                                                                     "I stopped working because of problems with the JSON file. Please restart me!")
                                             sys.exit()
@@ -202,7 +203,7 @@ while True:
                                 except NameError:
                                     gainResult_exists = False
                                     stamp = str(datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
-                                    print("Found no entry in pairs log with matching symbol:", symbol,
+                                    print(stamp,"Found no entry in pairs log with matching symbol:", symbol,
                                           "Looking at DCA log now...")
                                     for x in range(0, len(pyLogObject['dcaLogData'])):
                                         if symbol in str(pyLogObject['dcaLogData'][x]):
@@ -210,8 +211,8 @@ while True:
                                     try:
                                         dcaResult
                                     except NameError:
-                                        print("Found no entry in DCA log with matching symbol:", symbol, "No message sent.")
-                                        print("Trying again, until buy is in found in JSON")
+                                        stamp = str(datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
+                                        print(stamp,"Found no entry in DCA log with matching symbol:", symbol, "No message sent. Trying again, until buy is in found in JSON")
                                         dcaResult_exists = False
                                     else:
                                         dcaResult_exists = True
