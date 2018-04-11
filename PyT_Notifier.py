@@ -211,6 +211,7 @@ while True:
                                         dcaResult
                                     except NameError:
                                         print("Found no entry in DCA log with matching symbol:", symbol, "No message sent.")
+                                        print("Trying again, until buy is in found in JSON")
                                         dcaResult_exists = False
                                     else:
                                         dcaResult_exists = True
@@ -221,7 +222,7 @@ while True:
                                             avgPrice = str(dcaResult['averageCalculator']['avgPrice'])
                                             boughtTimes = str(dcaResult['boughtTimes'])
                                             # Compose message if market = symbol that triggered the search
-                                            message = "\U0001F4B8\U0000183C *BOUGHT DCA:*" + os.linesep + "`{0:<14}{1:>18}\n{2:<14}{3:>18}\n{4:<14}{5:>18}\n{6:<14}{7:>18}\n{8:<14}{9:>18}\n`".format(
+                                            message = "\U0001F4B8\U0001F4B8 *BOUGHT DCA:*" + os.linesep + "`{0:<14}{1:>18}\n{2:<14}{3:>18}\n{4:<14}{5:>18}\n{6:<14}{7:>18}\n{8:<14}{9:>18}\n`".format(
                                                 "Coin:", market, "Total amount:", amount, "Avg Price:",
                                                 str(format(float(avgPrice), '.8f')), "Current Price:",
                                                 str(format(float(curPrice), '.8f')), "DCA Level:", boughtTimes)
