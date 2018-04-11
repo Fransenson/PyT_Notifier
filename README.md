@@ -25,9 +25,9 @@ Install the twx.botapi: `pip3 install twx.botapi`
 
 **If you are facing issues with pip3:**
 
-see the [official instructions to install pip](https://packaging.python.org/tutorials/installing-packages/)
+see the [official instructions to install pip](https://packaging.python.org/tutorials/installing-packages/) 
 
-or [the pip installation guide](https://pip.pypa.io/en/stable/installing/),
+or [the pip installation guide](https://pip.pypa.io/en/stable/installing/), 
 
 or you just go: `sudo apt-get install python3-pip`
 
@@ -38,13 +38,13 @@ Download the current version of PyT_Notifier from the [release page here on GitH
 
 ____
 ### Step 4 - Change settings as needed
-Open `settings.py` with a text editor of your choice and fill in your relevant data.
+Open `settings.py` with a text editor of your choice and fill in your relevant data. 
 
 If you don't have a Telegram Bot API key already, go ask @BotFather on Telegram about it.
 
 To get your chat id, open a chat with your bot, visit `https://api.telegram.org/bot<YourBOTToken>/getUpdates` in a browser, send the bot a message and refresh the page.
 
-Please provide absolute paths to the needed files.
+Please provide absolute paths to the needed files. 
 
 ____
 ### Step 5 - Run!
