@@ -62,7 +62,7 @@ except:
 
 # Finalizing startup
 print("Starting to watch for new transactions...DO NOT CLOSE THIS WINDOW")
-firstSent = bot.send_message(chat_id, "I am up and watching your trades! See you soon.").wait()
+firstSent = bot.send_message(chat_id, "PyT_Notifier v1.0.8c - I am up and watching your trades! See you soon.").wait()
 if (firstSent):
     stamp = str(datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
     print(stamp, "- Sent first message to Telegram!")
