@@ -16,7 +16,7 @@ bot = TelegramBot(bot_token)
 bot.update_bot_info().wait()
 
 # Greeting
-print("Hello! This is PyT_Notifier by Fransenson#5625 (Discord)")
+print("Hello! This is PyT_Notifier v1.0.8c by Fransenson#5625 (Discord)")
 time.sleep(1)
 
 # Initial File Read to check if path is set correctly
