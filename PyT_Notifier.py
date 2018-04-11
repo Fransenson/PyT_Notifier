@@ -91,11 +91,11 @@ while True:
             for line in lines:
                 # If there is a transaction within the current line, go on with the message composer
 
-                if any(side in line for side in ("BUY", "SELL")) & all(orderinf in line for orderinf in ("Get order information")) & any(fillex in line for fillex in("FILLED", "EXPIRED")):
+                if all(orderinf in line for orderinf in ("Get order information")) & any(fillex in line for fillex in("FILLED", "EXPIRED")):
                     splitLine = line.split('--')
-                    jsonLine = json.loads(str(splitLine[1]))
+                    print(splitLine[1])
+                    jsonLine = json.loads(str(splitLine[1]).replace('\n', '').strip())
                     if (float(format(float(jsonLine['executedQty']),'.4f')) > 0):
-
                         symbol = jsonLine['symbol']
                         stamp = str(datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
                         print(stamp, "FOUND A TRANSACTION! Waiting for JSON to update")
@@ -116,8 +116,8 @@ while True:
                         while True:
                             try:
                                 with open(data_path, 'r') as myfile:
-                                   jsonData = myfile.read().replace('\n', '')
-                                   pyLogObject = json.loads(jsonData)
+                                    jsonData = myfile.read().replace('\n', '')
+                                    pyLogObject = json.loads(jsonData)
                                 break
                             except:
                                 time.sleep(2)
@@ -129,18 +129,14 @@ while True:
                                     sent = bot.send_message(chat_id,
                                                             "I stopped working because of problems with the JSON file. Please restart me!")
                                     sys.exit()
-
-
-
                         stamp = str(datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
                         print(stamp, "Transaction found was for:", symbol)
 
                         # was it a sale?...Then get latest entry in Sales Log for the symbol!
-                        if "SELL" in line:
+                        if jsonLine['side'] == "SELL":
                             stamp = str(datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
                             print(stamp, "It's a sale!")
-                            saleFound = False
-                            while saleFound == False:
+                            while True:
                                 for x in range(0, len(pyLogObject['sellLogData'])):
                                     if symbol in str(pyLogObject['sellLogData'][x]):
                                         sellResult = (pyLogObject['sellLogData'][x])
@@ -170,13 +166,14 @@ while True:
                                     sent = bot.send_message(chat_id, message, parse_mode="Markdown").wait()
                                     stamp = str(datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
                                     print(stamp, "- Found Sale! Sent SOLD message to Telegram!")
-                                    saleFound = True
+                                    sellResult_exists = False
+                                    break
+
                         # ...or was it a buy? Then see if it was DCA or not!
-                        if "BUY" in line:
+                        if jsonLine['side'] == "BUY":
                             stamp = str(datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
                             print(stamp, "It's a buy!")
-                            buyFound = False
-                            while not buyFound:
+                            while True:
                                 while True:
                                     crashTimer = 10
                                     try:
@@ -231,9 +228,10 @@ while True:
                                             sent = bot.send_message(chat_id, message, parse_mode="Markdown").wait()
                                             stamp = str(datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
                                             print(stamp, "- Found Buy! Sent DCA-BOUGHT message to Telegram!")
-                                            buyFound = True
+                                            dcaResult_exists = False
+                                            break
                                 else:
-                                    gainResult_exisits = True
+                                    gainResult_exists = True
                                     if gainResult_exists:
                                         market = str(gainResult['market'])
                                         amount = str(gainResult['averageCalculator']['totalAmount'])
@@ -247,7 +245,8 @@ while True:
                                         sent = bot.send_message(chat_id, message, parse_mode="Markdown").wait()
                                         stamp = str(datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
                                         print(stamp, "- Found Buy! Sent BOUGHT message to Telegram!")
-                                        buyFound = True
+                                        gainResult_exists = False
+                                        break
                                 time.sleep(1)
                 time.sleep(0.5)
             # after each line, memorize current position in the logfile
