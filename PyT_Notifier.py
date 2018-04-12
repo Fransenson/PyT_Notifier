@@ -93,12 +93,11 @@ while True:
 
                 if all(orderinf in line for orderinf in ("Get order information")) & any(fillex in line for fillex in("FILLED", "EXPIRED")):
                     splitLine = line.split('--')
-                    print(splitLine[1])
                     jsonLine = json.loads(str(splitLine[1]).replace('\n', '').strip())
                     if (float(format(float(jsonLine['executedQty']),'.4f')) > 0):
                         symbol = jsonLine['symbol']
                         stamp = str(datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
-                        print(stamp, "FOUND A TRANSACTION! Waiting for JSON to update")
+                        print(stamp, "FOUND A TRANSACTION FOR",symbol, "- Waiting for JSON to update")
                         # Wait for json to change
                         while True:
                             secondModTime = os.path.getmtime(data_path)
@@ -129,9 +128,6 @@ while True:
                                     sent = bot.send_message(chat_id,
                                                             "I stopped working because of problems with the JSON file. Please restart me!")
                                     sys.exit()
-                        stamp = str(datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
-                        print(stamp, "Transaction found was for:", symbol)
-
                         # was it a sale?...Then get latest entry in Sales Log for the symbol!
                         if jsonLine['side'] == "SELL":
                             stamp = str(datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
@@ -167,6 +163,7 @@ while True:
                                     stamp = str(datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
                                     print(stamp, "- Found Sale! Sent SOLD message to Telegram!")
                                     sellResult_exists = False
+                                    del sellResult
                                     break
 
                         # ...or was it a buy? Then see if it was DCA or not!
@@ -229,6 +226,7 @@ while True:
                                             stamp = str(datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
                                             print(stamp, "- Found Buy! Sent DCA-BOUGHT message to Telegram!")
                                             dcaResult_exists = False
+                                            del dcaResult
                                             break
                                 else:
                                     gainResult_exists = True
@@ -246,6 +244,7 @@ while True:
                                         stamp = str(datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
                                         print(stamp, "- Found Buy! Sent BOUGHT message to Telegram!")
                                         gainResult_exists = False
+                                        del gainResult
                                         break
                                 time.sleep(1)
                 time.sleep(0.5)
