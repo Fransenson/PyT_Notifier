@@ -91,7 +91,7 @@ while True:
             for line in lines:
                 # If there is a transaction within the current line, go on with the message composer
 
-                if all(orderinf in line for orderinf in ("Get order information")) & any(fill in line for fill in("FILLED")):
+                if all(orderinf in line for orderinf in ("Get order information")) & all(fill in line for fill in("FILLED")):
                     splitLine = line.split('--')
                     jsonLine = json.loads(str(splitLine[1]).replace('\n', '').strip())
                     if (float(format(float(jsonLine['executedQty']),'.4f')) > 0):
