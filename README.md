@@ -1,6 +1,14 @@
 # PyT_Notifier
 A Telegram notification bot for ProfitTrailer
 
+
+![buy](https://raw.githubusercontent.com/Fransenson/PyT_Notifier/master/screenshots/buy.png)
+
+![dcabuy](https://raw.githubusercontent.com/Fransenson/PyT_Notifier/master/screenshots/dca.png)
+
+![sale](https://raw.githubusercontent.com/Fransenson/PyT_Notifier/master/screenshots/sale.png)
+
+
 ## Features
 * Telegram push notifications with detailed information on buys(normal and DCA) and sales
 * NO EXCHANGE API REQUIRED - all information is being read from the PT log and database
