@@ -16,7 +16,7 @@ bot = TelegramBot(bot_token)
 bot.update_bot_info().wait()
 
 # Greeting
-print("Hello! This is PyT_Notifier v1.0.8c by Fransenson#5625 (Discord)")
+print("Hello! This is PyT_Notifier v1.0.8e by Fransenson#5625 (Discord)")
 time.sleep(1)
 
 # Initial File Read to check if path is set correctly
@@ -62,7 +62,7 @@ except:
 
 # Finalizing startup
 print("Starting to watch for new transactions...DO NOT CLOSE THIS WINDOW")
-firstSent = bot.send_message(chat_id, "PyT_Notifier v1.0.8c - I am up and watching your trades! See you soon.").wait()
+firstSent = bot.send_message(chat_id, "PyT_Notifier v1.0.8e - I am up and watching your trades! See you soon.").wait()
 if (firstSent):
     stamp = str(datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
     print(stamp, "- Sent first message to Telegram!")
@@ -91,7 +91,7 @@ while True:
             for line in lines:
                 # If there is a transaction within the current line, go on with the message composer
 
-                if all(orderinf in line for orderinf in ("Get order information")) & any(fillex in line for fillex in("FILLED", "EXPIRED")):
+                if all(orderinf in line for orderinf in ("Get order information")) & any(fill in line for fill in("FILLED")):
                     splitLine = line.split('--')
                     jsonLine = json.loads(str(splitLine[1]).replace('\n', '').strip())
                     if (float(format(float(jsonLine['executedQty']),'.4f')) > 0):
