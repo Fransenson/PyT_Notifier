@@ -14,7 +14,6 @@ A Telegram notification bot for ProfitTrailer
 * NO EXCHANGE API REQUIRED - all information is being read from the PT log and database
 
 ## Installation
-PyT_Notifier uses twx.botapi to send notifications. Therefore you need to install this package.
 
 **If you've installed Python(3.X) already, you can probably skip to step 2**
 
