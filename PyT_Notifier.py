@@ -2,9 +2,24 @@ import json
 import time
 import os
 import sys
+from urllib import request
+from urllib import parse
 import datetime
-from twx.botapi import TelegramBot
 import settings
+
+#needed function(s)
+def sendMessage(token, chat, text, **kwargs):
+    try:
+        parse_mode
+    except:
+        parse_mode = 'markdown'
+    baseurl = "http://api.telegram.org/bot"
+    url = baseurl+token+"/"+"sendMessage?"
+    test = {"chat_id":chat,"text":text,"parse_mode":parse_mode}
+    purl = parse.urlencode(test)
+    furl = url+purl
+    print(furl)
+    f = request.urlopen(furl)
 
 # Read Configuration File
 bot_token = settings.api_token
@@ -12,8 +27,6 @@ chat_id = settings.chat_id
 data_path = settings.data_path
 log_path = settings.log_path
 
-bot = TelegramBot(bot_token)
-bot.update_bot_info().wait()
 
 # Greeting
 print("Hello! This is PyT_Notifier v1.0.8e by Fransenson#5625 (Discord)")
@@ -42,8 +55,7 @@ while True:
             continue
         else:
             print("Could not read JSON File, even after 10 tries! Restart script to try again.")
-            sent = bot.send_message(chat_id,
-                                    "I stopped working because of problems with the JSON file. Please restart me!")
+            sendMessage(bot_token,chat_id,"I stopped working because of problems with the JSON file. Please restart me!")
             sys.exit()
 
 # Get current end of logfile
@@ -62,13 +74,9 @@ except:
 
 # Finalizing startup
 print("Starting to watch for new transactions...DO NOT CLOSE THIS WINDOW")
-firstSent = bot.send_message(chat_id, "PyT_Notifier v1.0.8e - I am up and watching your trades! See you soon.").wait()
-if (firstSent):
-    stamp = str(datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
-    print(stamp, "- Sent first message to Telegram!")
-else:
-    stamp = str(datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
-    print(stamp, "Could not send message to Telegram!")
+sendMessage(bot_token,chat_id,"PyT\_Notifier v1.0.8e - I am up and watching your trades! See you soon.")
+stamp = str(datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
+print(stamp, "- Sent first message to Telegram!")
 
 # Watchmode runtime
 aliveCounter = 60
@@ -125,8 +133,7 @@ while True:
                                     continue
                                 else:
                                     print("Could not read JSON File, even after 10 tries! Restart script to try again.")
-                                    sent = bot.send_message(chat_id,
-                                                            "I stopped working because of problems with the JSON file. Please restart me!")
+                                    sendMessage(bot_token, chat_id,"I stopped working because of problems with the JSON file. Please restart me!")
                                     sys.exit()
                         # was it a sale?...Then get latest entry in Sales Log for the symbol!
                         if jsonLine['side'] == "SELL":
@@ -159,7 +166,7 @@ while True:
                                         "Coin:", market, "Strategy:", sellStrat, "DCA Levels:", dcaLevels,
                                         "Trigger:", trigger, "Profit:", profit, "Coin Profit:",
                                         str(format(float(coinProfit), '.8f')))
-                                    sent = bot.send_message(chat_id, message, parse_mode="Markdown").wait()
+                                    sendMessage(bot_token, chat_id, message, parse_mode="Markdown")
                                     stamp = str(datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
                                     print(stamp, "- Found Sale! Sent SOLD message to Telegram!")
                                     sellResult_exists = False
@@ -186,8 +193,7 @@ while True:
                                         else:
                                             stamp = str(datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
                                             print(stamp,"Could not read JSON File, even after 10 tries! Restart script to try again.")
-                                            sent = bot.send_message(chat_id,
-                                                                    "I stopped working because of problems with the JSON file. Please restart me!")
+                                            sendMessage(bot_token, chat_id, "I stopped working because of problems with the JSON file. Please restart me!")
                                             sys.exit()
                                 for x in range(0, len(pyLogObject['gainLogData'])):
                                     if symbol in str(pyLogObject['gainLogData'][x]):
@@ -222,7 +228,7 @@ while True:
                                                 str(format(float(avgPrice), '.8f')), "Current Price:",
                                                 str(format(float(curPrice), '.8f')), "DCA Level:", boughtTimes)
                                             # Send Message to Telegram Bot
-                                            sent = bot.send_message(chat_id, message, parse_mode="Markdown").wait()
+                                            sendMessage(bot_token, chat_id, message, parse_mode="Markdown")
                                             stamp = str(datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
                                             print(stamp, "- Found Buy! Sent DCA-BOUGHT message to Telegram!")
                                             dcaResult_exists = False
@@ -240,7 +246,7 @@ while True:
                                             "Coin:", market, "Amount:", amount, "Avg. Price:",
                                             str(format(float(avgPrice), '.8f')), "Total Cost:",
                                             str(format(float(totalCost), '.4f')))
-                                        sent = bot.send_message(chat_id, message, parse_mode="Markdown").wait()
+                                        sendMessage(bot_token, chat_id, message, parse_mode="Markdown")
                                         stamp = str(datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
                                         print(stamp, "- Found Buy! Sent BOUGHT message to Telegram!")
                                         gainResult_exists = False
