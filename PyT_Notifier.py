@@ -76,7 +76,8 @@ except:
 
 # Finalizing startup
 print("Starting to watch for new transactions...DO NOT CLOSE THIS WINDOW")
-sendMessage(bot_token,chat_id,"PyT\_Notifier",version,"- I am up and watching your trades! See you soon.")
+text = "PyT\_Notifier "+version+" - I am up and watching your trades! See you soon."
+sendMessage(bot_token,chat_id,text)
 stamp = str(datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
 print(stamp, "- Sent first message to Telegram!")
 
