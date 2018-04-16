@@ -21,6 +21,8 @@ def sendMessage(token, chat, text, **kwargs):
     print(furl)
     f = request.urlopen(furl)
 
+version = "v1.0.9"
+
 # Read Configuration File
 bot_token = settings.api_token
 chat_id = settings.chat_id
@@ -29,7 +31,7 @@ log_path = settings.log_path
 
 
 # Greeting
-print("Hello! This is PyT_Notifier v1.0.8e by Fransenson#5625 (Discord)")
+print("Hello! This is PyT_Notifier",version,"by Fransenson#5625 (Discord)")
 time.sleep(1)
 
 # Initial File Read to check if path is set correctly
@@ -74,7 +76,7 @@ except:
 
 # Finalizing startup
 print("Starting to watch for new transactions...DO NOT CLOSE THIS WINDOW")
-sendMessage(bot_token,chat_id,"PyT\_Notifier v1.0.8e - I am up and watching your trades! See you soon.")
+sendMessage(bot_token,chat_id,"PyT\_Notifier",version,"- I am up and watching your trades! See you soon.")
 stamp = str(datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
 print(stamp, "- Sent first message to Telegram!")
 
