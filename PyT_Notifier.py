@@ -18,7 +18,6 @@ def sendMessage(token, chat, text, **kwargs):
     test = {"chat_id":chat,"text":text,"parse_mode":parse_mode}
     purl = parse.urlencode(test)
     furl = url+purl
-    print(furl)
     f = request.urlopen(furl)
 
 version = "v1.0.9"
@@ -101,8 +100,8 @@ while True:
         else:
             for line in lines:
                 # If there is a transaction within the current line, go on with the message composer
-
-                if all(orderinf in line for orderinf in ("Get order information")) & all(fill in line for fill in("FILLED")):
+                if (line.lower().find("get order information")) & (line.lower().find("filled")) & (lastPushEndPos != initialEndPos):
+                #if all(orderinf in line for orderinf in ("Get order information")) & all(fill in line for fill in("FILLED")):
                     splitLine = line.split('--')
                     jsonLine = json.loads(str(splitLine[1]).replace('\n', '').strip())
                     if (float(format(float(jsonLine['executedQty']),'.4f')) > 0):
@@ -258,4 +257,7 @@ while True:
                                 time.sleep(1)
                 time.sleep(0.5)
             # after each line, memorize current position in the logfile
+            stamp = str(datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
+            print(stamp, "Back to the logfile - next line.")
+            lastPushEndPos = f.tell()
             initialEndPos = f.tell()
