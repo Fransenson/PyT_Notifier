@@ -82,6 +82,7 @@ print(stamp, "- Sent first message to Telegram!")
 
 # Watchmode runtime
 aliveCounter = 60
+lastPushEndPos = 1
 while True:
     time.sleep(2)
     aliveCounter -= 1
